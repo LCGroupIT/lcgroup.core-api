@@ -1,15 +1,16 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { ApiModule, ApiService } from 'lib/api';
+
+import { SimplyApiModule, SimplyApiService } from '.';
 
 describe('ApiModule', () => {
 
       beforeEach(() => TestBed.configureTestingModule({
-        imports: [HttpClientTestingModule, ApiModule]
+        imports: [HttpClientTestingModule, SimplyApiModule]
       }));
 
       it('should POST data', () => {
-        const apiService: ApiService = TestBed.get(ApiService);
+        const apiService: SimplyApiService = TestBed.get(SimplyApiService);
         const http: HttpTestingController = TestBed.get(HttpTestingController);
         // fake response
         const expectedUsers = [{ name: 'Cédric' }];
@@ -27,7 +28,7 @@ describe('ApiModule', () => {
       });
 
       it('should GET data without query string', () => {
-        const apiService: ApiService = TestBed.get(ApiService);
+        const apiService: SimplyApiService = TestBed.get(SimplyApiService);
         const http: HttpTestingController = TestBed.get(HttpTestingController);
         // fake response
         const expectedUsers = [{ name: 'Cédric' }];
@@ -45,7 +46,7 @@ describe('ApiModule', () => {
       });
 
       it('should GET data by query string', () => {
-        const apiService: ApiService = TestBed.get(ApiService);
+        const apiService: SimplyApiService = TestBed.get(SimplyApiService);
         const http: HttpTestingController = TestBed.get(HttpTestingController);
         // fake response
         const expectedUsers = [{ name: 'Cédric' }];

@@ -1,10 +1,8 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Inject, Injectable, Optional } from '@angular/core';
-import 'rxjs/add/observable/throw';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
-import { Observable } from 'rxjs/Observable';
-import { API_ENDPOINT } from './api.tokens';
+import { Observable } from 'rxjs';
+
+import { API_ENDPOINT } from './simply-api.tokens';
 import { QueryHelper } from './utils';
 
 
@@ -22,7 +20,7 @@ export type ApiOptions = {
 };
 
 @Injectable()
-export class ApiService {
+export class SimplyApiService {
 
     constructor(
         private http: HttpClient,

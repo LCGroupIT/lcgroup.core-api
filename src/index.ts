@@ -1,3 +1,3 @@
-export * from './api.tokens';
-export * from './api.module';
-export * from './api.service';
+export * from './simply-api.tokens';
+export * from './simply-api.module';
+export * from './simply-api.service';

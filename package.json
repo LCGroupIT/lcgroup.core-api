@@ -4,15 +4,15 @@
     "author": {
         "name": "Sergey Romanchuk"
     },
-    "homepage": "https://github.com/Romanchuk/angular-simply-api#readme",
+    "homepage": "https://github.com/LCGroupIT/angular-simply-api#readme",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/Romanchuk/angular-simply-api.git"
+        "url": "git+https://github.com/LCGroupIT/angular-simply-api.git"
     },
     "license": "MIT",
-    "description": "angular directive that inserts @angular/forms validation message right after your validating control",
+    "description": "Angular 4+ http request simplifier",
     "engines": {
-        "node": "4.4.4"
+        "node": "8.9.3"
     },
     "scripts": {
         "karma": "npx karma",
@@ -41,8 +41,9 @@
         "test:watch": "npm run clean:tests && karma start karma.conf.debug.js"
     },
     "dependencies": {
-        "@angular/core": ">=4.0.0 <7.0.0",
-        "@angular/forms": ">=4.0.0 <7.0.0"
+        "@angular/common": ">=4.0.0 <=7.0.0",
+        "@angular/core": ">=4.0.0 <=7.0.0",
+        "rxjs": ">=5.5.10 <=7.0.0"
     },
     "devDependencies": {
         "@angular/compiler": ">=4.0.0 <7.0.0",
@@ -55,7 +56,7 @@
         "conventional-changelog-cli": "^1.3.4",
         "conventional-github-releaser": "^2.0.0",
         "coveralls": "^3.0.0",
-        "codelyzer": "^4.0.1",
+        "codelyzer": "^4.4.2",
         "rimraf": "^2.6.2",
         "rollup": "^0.50.0",
         "sinon": "^4.1.1",
@@ -68,7 +69,7 @@
         "karma-sourcemap-loader": "^0.3.7",
         "karma-spec-reporter": "^0.0.31",
         "tslint": "^5.8.0",
-        "typedoc": "^0.9.0",
+        "typedoc": "^0.11.1",
         "typescript": "2.4.2",
         "zone.js": "^0.8.18",
         "cpy-cli": "^1.0.1"
