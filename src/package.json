@@ -1,6 +1,6 @@
 {
     "name": "angular-simply-api",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "homepage": "https://github.com/LCGroupIT/angular-simply-api#readme",
     "author": {
         "name": "Sergey Romanchuk"
@@ -19,12 +19,10 @@
     "bugs": {
         "url": "https://github.com/LCGroupIT/angular-simply-api/issues"
     },
-    "maintainers": [
-        {
-            "email": "rezety@gmail.com",
-            "name": "Sergey Romanchuk"
-        }
-    ],
+    "maintainers": [{
+        "email": "rezety@gmail.com",
+        "name": "Sergey Romanchuk"
+    }],
     "module": "angular-simply-api.es5.js",
     "es2015": "angular-simply-api.js",
     "typings": "angular-simply-api.d.ts",

@@ -1,6 +1,6 @@
 {
     "name": "angular-simply-api",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "author": {
         "name": "Sergey Romanchuk"
     },
@@ -36,7 +36,7 @@
         "lint-js": "eslint '**/*.js' --ignore-path .gitignore",
         "preversion": "npm run clean:compile && npm run compile && npm run copy:assets",
         "version": "npm run changelog && git add CHANGELOG.md",
-        "postversion": "git push && git push --tags && npx conventional-github-releaser -p angular",
+        "postversion": "git push && git push --tags",
         "test": "npm run clean:tests && karma start karma.conf.js",
         "test:watch": "npm run clean:tests && karma start karma.conf.debug.js"
     },

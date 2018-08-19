@@ -2,7 +2,8 @@ export class QueryHelper {
     static objectToParams(object): string {
         const keys = Object.keys(object);
         let result = [];
-        for (let key in keys) {
+        for (let k in keys) {
+            const key = keys[k];
             if (object[key]) {
                 result.push(object[key] instanceof Object ?
                     this.subObjectToParams(encodeURIComponent(key), object[key]) :
@@ -14,7 +15,8 @@ export class QueryHelper {
     static subObjectToParams(key, object): string {
         const keys = Object.keys(object);
         let result = [];
-        for (let childKey in keys) {
+        for (let childK in keys) {
+            const childKey = keys[childK];
             if (object[childKey]) {
                 result.push(object[childKey] instanceof Object ?
                 this.subObjectToParams(`${key}[${encodeURIComponent(childKey)}]`, object[childKey]) :
