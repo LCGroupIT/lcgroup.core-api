@@ -1,8 +1,9 @@
 import { HttpClientModule } from '@angular/common/http';
-import { ModuleWithProviders, NgModule } from '@angular/core';
+import { ModuleWithProviders, NgModule, Provider } from '@angular/core';
 
 import { SimplyApiService } from './simply-api.service';
 import * as ApiTokens from './simply-api.tokens';
+import { ISimplyApiModuleOptions } from './simply-api.options';
 
 @NgModule({
     imports: [
@@ -13,16 +14,22 @@ import * as ApiTokens from './simply-api.tokens';
     ]
 })
 export class SimplyApiModule {
-    static forRoot(endpoint: string = null): ModuleWithProviders {
+    static forRoot(endpoint: string = null, options?: ISimplyApiModuleOptions): ModuleWithProviders {
+        const providers: Provider[] = [
+            SimplyApiService,
+            {
+                provide: ApiTokens.API_ENDPOINT,
+                useValue: endpoint || ''
+            }
+        ];
+
+        if (options && options.serializeProvider) {
+            providers.push(options.serializeProvider);
+        }
+
         return {
             ngModule: SimplyApiModule,
-            providers: [
-                SimplyApiService,
-                {
-                    provide: ApiTokens.API_ENDPOINT,
-                    useValue: endpoint || ''
-                }
-            ]
+            providers: providers
         };
     }
 }
