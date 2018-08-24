@@ -3,8 +3,14 @@ import { ModuleWithProviders, NgModule, Provider } from '@angular/core';
 
 import { SimplyApiService } from './simply-api.service';
 import * as ApiTokens from './simply-api.tokens';
-import { ISimplyApiModuleOptions } from './simply-api.options';
+import { ISimplyApiModuleOptions, ISerializer } from './simply-api.options';
 
+export function nullSerializerFactory() {
+    return <ISerializer>{
+        serialize: data => data,
+        deserialize: data => data
+    };
+}
 @NgModule({
     imports: [
         HttpClientModule
@@ -14,22 +20,20 @@ import { ISimplyApiModuleOptions } from './simply-api.options';
     ]
 })
 export class SimplyApiModule {
-    static forRoot(endpoint: string = null, options?: ISimplyApiModuleOptions): ModuleWithProviders {
-        const providers: Provider[] = [
-            SimplyApiService,
-            {
-                provide: ApiTokens.API_ENDPOINT,
-                useValue: endpoint || ''
-            }
-        ];
-
-        if (options && options.serializeProvider) {
-            providers.push(options.serializeProvider);
-        }
-
+    static forRoot(options: ISimplyApiModuleOptions = {}): ModuleWithProviders {
         return {
             ngModule: SimplyApiModule,
-            providers: providers
+            providers: [
+                SimplyApiService,
+                {
+                    provide: ApiTokens.API_ENDPOINT,
+                    useValue: options.endpoint || ''
+                },
+                options.serializeProvider || {
+                    provide: ApiTokens.API_SERIALIZER,
+                    useFactory: nullSerializerFactory
+                }
+            ]
         };
     }
 }

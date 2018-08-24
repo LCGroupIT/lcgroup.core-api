@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Inject, Injectable, Optional, inject, Type } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { API_ENDPOINT, SERIALIZER_OPTIONS } from './simply-api.tokens';
+import { API_ENDPOINT, API_SERIALIZER } from './simply-api.tokens';
 import { QueryHelper } from './utils';
 import { ISerializer } from './simply-api.options';
 import { map } from 'rxjs/operators';
@@ -32,7 +32,7 @@ export class SimplyApiService {
         @Inject(API_ENDPOINT)
         private apiEndpoint: string = null,
         @Optional()
-        @Inject(SERIALIZER_OPTIONS)
+        @Inject(API_SERIALIZER)
         private serializer: ISerializer
     ) {}
 
@@ -108,7 +108,7 @@ export class SimplyApiService {
     }
 
     private tryDeserialize<T>(data: any, classRef: { new(): T }): T {
-        if (this.serializer && typeof classRef !== 'undefined') {
+        if (this.serializer && typeof classRef === 'function') {
             return this.serializer.deserialize(data, classRef);
         }
         return data;

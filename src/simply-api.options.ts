@@ -10,5 +10,6 @@ export interface ISerializerProvider extends FactoryProvider {
 }
 
 export interface ISimplyApiModuleOptions {
-    serializeProvider: ISerializerProvider;
+    endpoint?: string;
+    serializeProvider?: ISerializerProvider;
 }

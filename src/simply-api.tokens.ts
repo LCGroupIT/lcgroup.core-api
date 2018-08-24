@@ -1,5 +1,6 @@
 import { InjectionToken } from '@angular/core';
+import { ISerializer } from './simply-api.options';
 
 export const API_ENDPOINT: InjectionToken<string> = new InjectionToken<string>('API_ENDPOINT');
-export const SERIALIZER_OPTIONS: InjectionToken<{}> = new InjectionToken<{}>('SERIALIZER_OPTIONS');
+export const API_SERIALIZER: InjectionToken<ISerializer> = new InjectionToken<ISerializer>('API_SERIALIZER');
 
