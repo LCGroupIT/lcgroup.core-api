@@ -1,12 +1,12 @@
 import { HttpClientModule } from '@angular/common/http';
-import { ModuleWithProviders, NgModule, Provider } from '@angular/core';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 
+import { ISerializer, ISimplyApiModuleOptions } from './simply-api.options';
 import { SimplyApiService } from './simply-api.service';
 import * as ApiTokens from './simply-api.tokens';
-import { ISimplyApiModuleOptions, ISerializer } from './simply-api.options';
 
-export function nullSerializerFactory() {
-    return <ISerializer>{
+export function nullSerializerFactory(): ISerializer {
+    return {
         serialize: data => data,
         deserialize: data => data
     };

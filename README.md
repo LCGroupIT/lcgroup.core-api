@@ -43,3 +43,16 @@ export function serializerFactory() {
 export class AppModule { }
 
 ```
+
+Deserialize as ClientsFilterResult:
+```
+
+@Injectable()
+export class ClientsService {
+  constructor(private api: SimplyApiService) { }
+
+  public getClientsList(filter: ClientInfoFilterDto): Observable<ClientsFilterResult> {
+    return this.api.post(`/clients/search`, filter, {classRef: ClientsFilterResult});
+  }
+}
+```
