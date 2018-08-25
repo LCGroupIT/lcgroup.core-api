@@ -1,9 +1,16 @@
 import { HttpClientModule } from '@angular/common/http';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 
+import { ISerializer, ISimplyApiModuleOptions } from './simply-api.options';
 import { SimplyApiService } from './simply-api.service';
 import * as ApiTokens from './simply-api.tokens';
 
+export function nullSerializerFactory(): ISerializer {
+    return {
+        serialize: data => data,
+        deserialize: data => data
+    };
+}
 @NgModule({
     imports: [
         HttpClientModule
@@ -13,14 +20,18 @@ import * as ApiTokens from './simply-api.tokens';
     ]
 })
 export class SimplyApiModule {
-    static forRoot(endpoint: string = null): ModuleWithProviders {
+    static forRoot(options: ISimplyApiModuleOptions = {}): ModuleWithProviders {
         return {
             ngModule: SimplyApiModule,
             providers: [
                 SimplyApiService,
                 {
                     provide: ApiTokens.API_ENDPOINT,
-                    useValue: endpoint || ''
+                    useValue: options.endpoint || ''
+                },
+                options.serializeProvider || {
+                    provide: ApiTokens.API_SERIALIZER,
+                    useFactory: nullSerializerFactory
                 }
             ]
         };
