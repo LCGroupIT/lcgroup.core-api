@@ -20,8 +20,8 @@ export interface IApiOptions  {
     responseType?: ResponseTypeEnum;
 }
 
-export interface IClassReference {
-    classRef?: { new(): any };
+export interface IDeserializeOptions {
+    deserializeTo?: { new(): any };
 }
 
 @Injectable()
@@ -36,7 +36,7 @@ export class SimplyApiService {
         private serializer: ISerializer
     ) {}
 
-    public get<T>(url: string, options?: IApiOptions & IClassReference): Observable<T> {
+    public get<T>(url: string, options?: IApiOptions & IDeserializeOptions): Observable<T> {
         options = options || { responseType: ResponseTypeEnum.json };
         const par = this.getQueryParams(options.params);
         return this.http
@@ -45,10 +45,10 @@ export class SimplyApiService {
                 responseType: options.responseType as ResponseTypeEnum.json,
                 headers: options.headers
             })
-            .pipe(map(result => this.tryDeserialize<T>(result, options && options.classRef)));
+            .pipe(map(result => this.tryDeserialize<T>(result, options && options.deserializeTo)));
     }
 
-    public post<T>(url: string, body: any, options?: IApiOptions & IClassReference): Observable<T> {
+    public post<T>(url: string, body: any, options?: IApiOptions & IDeserializeOptions): Observable<T> {
         options = options || { responseType: ResponseTypeEnum.json };
         const par = this.getQueryParams(options.params);
         return this.http
@@ -57,10 +57,10 @@ export class SimplyApiService {
                 responseType: options.responseType as ResponseTypeEnum.json,
                 headers: options.headers
             })
-            .pipe(map(result => this.tryDeserialize<T>(result, options && options.classRef)));
+            .pipe(map(result => this.tryDeserialize<T>(result, options && options.deserializeTo)));
     }
 
-    public put<T>(url: string, body: any, options?: IApiOptions & IClassReference): Observable<T> {
+    public put<T>(url: string, body: any, options?: IApiOptions & IDeserializeOptions): Observable<T> {
         options = options || { responseType: ResponseTypeEnum.json };
         const par = this.getQueryParams(options.params);
         return this.http
@@ -69,10 +69,10 @@ export class SimplyApiService {
                 responseType: options.responseType as ResponseTypeEnum.json,
                 headers: options.headers
             })
-            .pipe(map(result => this.tryDeserialize<T>(result, options && options.classRef)));
+            .pipe(map(result => this.tryDeserialize<T>(result, options && options.deserializeTo)));
     }
 
-    public delete<T>(url: string, options?: IApiOptions & IClassReference): Observable<T> {
+    public delete<T>(url: string, options?: IApiOptions & IDeserializeOptions): Observable<T> {
         options = options || { responseType: ResponseTypeEnum.json };
         const par = this.getQueryParams(options.params);
         return this.http
@@ -81,7 +81,7 @@ export class SimplyApiService {
                 responseType: options.responseType as ResponseTypeEnum.json,
                 headers: options.headers
             })
-            .pipe(map(result => this.tryDeserialize<T>(result, options && options.classRef)));
+            .pipe(map(result => this.tryDeserialize<T>(result, options && options.deserializeTo)));
     }
 
     public buildUrl(url: string) {
@@ -107,9 +107,9 @@ export class SimplyApiService {
         return data;
     }
 
-    private tryDeserialize<T>(data: any, classRef: { new(): T }): T {
-        if (this.serializer && typeof classRef === 'function') {
-            return this.serializer.deserialize(data, classRef);
+    private tryDeserialize<T>(data: any, deserializeTo: { new(): T }): T {
+        if (this.serializer && typeof deserializeTo === 'function') {
+            return this.serializer.deserialize(data, deserializeTo);
         }
         return data;
     }

@@ -37,14 +37,13 @@ export function serializerFactory() {
         }
     )
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
 
 ```
 
-Deserialize as ClientsFilterResult:
+Deserialize json to ClientsFilterResult:
 ```
 
 @Injectable()
@@ -52,7 +51,7 @@ export class ClientsService {
   constructor(private api: SimplyApiService) { }
 
   public getClientsList(filter: ClientInfoFilterDto): Observable<ClientsFilterResult> {
-    return this.api.post(`/clients/search`, filter, {classRef: ClientsFilterResult});
+    return this.api.post(`/clients/search`, filter, {deserializeTo: ClientsFilterResult});
   }
 }
 ```
