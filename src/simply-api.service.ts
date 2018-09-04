@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 
 import { ISerializer } from './simply-api.options';
 import { API_ENDPOINT, API_SERIALIZER } from './simply-api.tokens';
-import { QueryHelper } from './utils';
+import { QueryHelper, WebApiHttpParams } from './utils';
 
 export enum ResponseTypeEnum {
     json = 'json',
@@ -38,7 +38,7 @@ export class SimplyApiService {
 
     public get<T>(url: string, options?: IApiOptions & IDeserializeOptions): Observable<T> {
         options = options || { responseType: ResponseTypeEnum.json };
-        const par = this.getQueryParams(options.params);
+        const par = this.getHttpParams(options.params);
         return this.http
             .get<T>(this.buildUrl(url), {
                 params: par,
@@ -50,7 +50,7 @@ export class SimplyApiService {
 
     public post<T>(url: string, body: any, options?: IApiOptions & IDeserializeOptions): Observable<T> {
         options = options || { responseType: ResponseTypeEnum.json };
-        const par = this.getQueryParams(options.params);
+        const par = this.getHttpParams(options.params);
         return this.http
             .post<T>(this.buildUrl(url), this.trySerialize(body), {
                 params: par,
@@ -62,7 +62,7 @@ export class SimplyApiService {
 
     public put<T>(url: string, body: any, options?: IApiOptions & IDeserializeOptions): Observable<T> {
         options = options || { responseType: ResponseTypeEnum.json };
-        const par = this.getQueryParams(options.params);
+        const par = this.getHttpParams(options.params);
         return this.http
             .put<T>(this.buildUrl(url), this.trySerialize(body), {
                 params: par,
@@ -74,7 +74,7 @@ export class SimplyApiService {
 
     public delete<T>(url: string, options?: IApiOptions & IDeserializeOptions): Observable<T> {
         options = options || { responseType: ResponseTypeEnum.json };
-        const par = this.getQueryParams(options.params);
+        const par = this.getHttpParams(options.params);
         return this.http
             .delete<T>(this.buildUrl(url), {
                 params: par,
@@ -91,13 +91,11 @@ export class SimplyApiService {
         return this.apiEndpoint.concat(url);
     }
 
-    private getQueryParams(params: { [key: string]: any }): HttpParams {
+    private getHttpParams(params: { [key: string]: any }): HttpParams {
         if (!params) {
             return null;
         }
-        const query = QueryHelper.objectToParams(this.trySerialize(params));
-        const httpParams = new HttpParams({ fromString: query });
-        return httpParams;
+        return new WebApiHttpParams({ fromObject: this.trySerialize(params) });
     }
 
     private trySerialize(data: any): any {
