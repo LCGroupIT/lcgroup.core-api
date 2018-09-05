@@ -1,9 +1,9 @@
 import { HttpClientModule } from '@angular/common/http';
 import { ModuleWithProviders, NgModule } from '@angular/core';
-
 import { ISerializer, ISimplyApiModuleOptions } from './simply-api.options';
 import { SimplyApiService } from './simply-api.service';
 import * as ApiTokens from './simply-api.tokens';
+
 
 export function nullSerializerFactory(): ISerializer {
     return {

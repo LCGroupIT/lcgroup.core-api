@@ -2,10 +2,10 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Inject, Injectable, Optional } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-
+import { WebApiHttpParams } from '../src/web-api-http-params';
 import { ISerializer } from './simply-api.options';
 import { API_ENDPOINT, API_SERIALIZER } from './simply-api.tokens';
-import { QueryHelper, WebApiHttpParams } from './utils';
+
 
 export enum ResponseTypeEnum {
     json = 'json',

@@ -7,6 +7,7 @@ Angular 4+ http request simplifier
 
 - endpoint setup
 - serializing libraries support
+- asp.net web api query string format
 
 ### Endpoint setup
 
@@ -24,6 +25,36 @@ export interface ISerializer {
     serialize(data: any): any;
     deserialize(data: any, T?: { new (): any; }): any;
 }
+```
+
+### Query string builder
+
+Native angular HttpClient query string params builder was changed to custom (WebApiHttpParams) due incorrect query string binding with asp.net web api. **WebApiHttpParams** requrcively analyses any complex object and builds correct query string.
+
+```typescript
+it('should serialize complex object to query string', () => {
+      const complexObj: any = {
+          numeric: 1,
+          float: 1.40,
+          string: 'text',
+          subObject: {
+              prop1: 'a',
+              prop2: 'b'
+          },
+          arrayPrimitive: [1],
+          arrayObjects: [
+              {
+                  value: 1
+              },
+              {
+                  value: 2
+              }
+          ]
+      };
+
+      const params = new WebApiHttpParams({ fromObject: complexObj });
+      expect(params.toString()).toEqual('numeric=1&float=1.4&string=text&subObject[prop1]=a&subObject[prop2]=b&arrayPrimitive[0]=1&arrayObjects[0][value]=1&arrayObjects[1][value]=2');
+});
 ```
 
 ## Installation
@@ -57,7 +88,7 @@ export function serializerFactory() {
     CommonModule,
     BrowserModule,
     SimplyApiModule.forRoot(
-        'https://localhost:3000/api/',
+        '/api',
         {
             serializeProvider: {
               provide: SERIALIZER_OPTIONS,
