@@ -20,8 +20,17 @@ export interface IApiOptions  {
     responseType?: ResponseTypeEnum;
 }
 
+
 export interface IDeserializeOptions {
-    deserializeTo?: { new(): any };
+    /**
+     *  Accepts:
+     *  - constructor: to deserialize to instance of object
+     *  - [constructor] (array with a single element constructor): to deserialize to array of instances
+     *
+     * @type {({ new(...args): any } | [{ new(...args): any }])}
+     * @memberof IDeserializeOptions
+     */
+    deserializeTo?: { new(...args): any } | [{ new(...args): any }];
 }
 
 @Injectable()
@@ -105,8 +114,15 @@ export class SimplyApiService {
         return data;
     }
 
-    private tryDeserialize<T>(data: any, deserializeTo: { new(): T }): T {
-        if (this.serializer && typeof deserializeTo === 'function') {
+    private tryDeserialize<T>(data: any, deserializeTo: { new(...args): T } | [{ new(...args): T }]) {
+        if (!this.serializer) {
+            return data;
+        }
+        if (deserializeTo instanceof Array && data instanceof Array) {
+            const type = deserializeTo.length > 0 ? deserializeTo[0] : undefined;
+            return data.map(d => this.serializer.deserialize(d, type));
+        }
+        if (typeof deserializeTo === 'function') {
             return this.serializer.deserialize(data, deserializeTo);
         }
         return data;

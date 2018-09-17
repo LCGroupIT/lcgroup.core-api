@@ -45,6 +45,38 @@ describe('SimplyApiService: serializer (mapper)', () => {
         )
     );
 
+    it('should deserializeTo arrays',
+        async(
+            inject([SimplyApiService, HttpTestingController], (apiService: SimplyApiService, backend: HttpTestingController) => {
+                const path = '/api/test';
+
+                class Test {
+                    UPPERCASED: string;
+                }
+
+                apiService.get(path, { deserializeTo: [Test] }).subscribe((deserialized: Test[]) => {
+                    expect(deserialized instanceof Array).toBeTruthy();
+                    expect(deserialized[0] instanceof Test).toBeTruthy();
+                    expect(deserialized[1] instanceof Test).toBeTruthy();
+                    expect(deserialized[0].UPPERCASED).toBeTruthy();
+                    expect(deserialized[0].UPPERCASED).toEqual('text');
+                    expect(deserialized[1].UPPERCASED).toBeTruthy();
+                    expect(deserialized[1].UPPERCASED).toEqual('text_two');
+                });
+                backend.expectOne({
+                    url: path,
+                    method: 'GET'
+                }).flush(
+                    [
+                        { uppercased: 'text' },
+                        { uppercased: 'text_two' }
+                    ]
+                );
+            })
+        )
+    );
+
+
     it('should call serialize method on POST and GET',
         async(
             inject([SimplyApiService, HttpTestingController], (apiService: SimplyApiService, backend: HttpTestingController) => {
