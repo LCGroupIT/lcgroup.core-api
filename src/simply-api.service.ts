@@ -27,8 +27,9 @@ export interface IDeserializeOptions {
      *  - constructor: to deserialize to instance of object
      *  - [constructor] (array with a single element constructor): to deserialize to array of instances
      *
-     * @type {({ new(...args): any } | [{ new(...args): any }])}
-     * @memberof IDeserializeOptions
+     * type {({ new(...args): any } | [{ new(...args): any }])}
+     *
+     * memberof IDeserializeOptions
      */
     deserializeTo?: { new(...args): any } | [{ new(...args): any }];
 }
