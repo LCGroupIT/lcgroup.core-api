@@ -18,9 +18,11 @@ export enum ResponseTypeEnum {
 export interface IApiOptions  {
     headers?: HttpHeaders;
     params?: { [key: string]: any };
-    responseType?: ResponseTypeEnum;
+    responseType?: any;
+    reportProgress?: boolean;
+    withCredentials?: boolean;
+    observe?;
 }
-
 
 export interface IDeserializeOptions {
     /**
@@ -49,49 +51,33 @@ export class SimplyApiService {
 
     public get<T>(url: string, options?: IApiOptions & IDeserializeOptions): Observable<T> {
         options = options || { responseType: ResponseTypeEnum.json };
-        const par = this.getHttpParams(options.params);
+        options.params = this.getHttpParams(options.params);
         return this.http
-            .get<T>(this.buildUrl(url), {
-                params: par,
-                responseType: options.responseType as ResponseTypeEnum.json,
-                headers: options.headers
-            })
+            .get<T>(this.buildUrl(url), options)
             .pipe(map(result => this.tryDeserialize<T>(result, options && options.deserializeTo)));
     }
 
     public post<T>(url: string, body: any, options?: IApiOptions & IDeserializeOptions): Observable<T> {
         options = options || { responseType: ResponseTypeEnum.json };
-        const par = this.getHttpParams(options.params);
+        options.params = this.getHttpParams(options.params);
         return this.http
-            .post<T>(this.buildUrl(url), this.trySerialize(body), {
-                params: par,
-                responseType: options.responseType as ResponseTypeEnum.json,
-                headers: options.headers
-            })
+            .post<T>(this.buildUrl(url), this.trySerialize(body), options)
             .pipe(map(result => this.tryDeserialize<T>(result, options && options.deserializeTo)));
     }
 
     public put<T>(url: string, body: any, options?: IApiOptions & IDeserializeOptions): Observable<T> {
         options = options || { responseType: ResponseTypeEnum.json };
-        const par = this.getHttpParams(options.params);
+        options.params = this.getHttpParams(options.params);
         return this.http
-            .put<T>(this.buildUrl(url), this.trySerialize(body), {
-                params: par,
-                responseType: options.responseType as ResponseTypeEnum.json,
-                headers: options.headers
-            })
+            .put<T>(this.buildUrl(url), this.trySerialize(body), options)
             .pipe(map(result => this.tryDeserialize<T>(result, options && options.deserializeTo)));
     }
 
     public delete<T>(url: string, options?: IApiOptions & IDeserializeOptions): Observable<T> {
         options = options || { responseType: ResponseTypeEnum.json };
-        const par = this.getHttpParams(options.params);
+        options.params = this.getHttpParams(options.params);
         return this.http
-            .delete<T>(this.buildUrl(url), {
-                params: par,
-                responseType: options.responseType as ResponseTypeEnum.json,
-                headers: options.headers
-            })
+            .delete<T>(this.buildUrl(url), options)
             .pipe(map(result => this.tryDeserialize<T>(result, options && options.deserializeTo)));
     }
 

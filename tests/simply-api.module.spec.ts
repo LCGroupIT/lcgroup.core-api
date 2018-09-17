@@ -91,6 +91,28 @@ describe('Service: SimplyApiService', () => {
         )
     );
 
+    it('should observe response',
+        async(
+            inject([SimplyApiService, HttpTestingController], (apiService: SimplyApiService, backend: HttpTestingController) => {
+                const path = 'test';
+                const expectedPath = '/api/test';
+                const testData = {
+                    a: 1,
+                    b: 2
+                };
+
+                apiService.post(path, testData, { observe: 'response' }).subscribe((resp: any) => {
+                    expect(resp.status).toEqual(200);
+                    expect(JSON.stringify(resp.body)).toEqual(JSON.stringify(testData));
+                });
+                backend.expectOne({
+                    url: expectedPath,
+                    method: 'POST',
+                }).flush(testData);
+            })
+        )
+    );
+
     it('nullo-mapper should pass through values', () => {
         const nulloMapper = nullSerializerFactory();
         const testData = {
