@@ -1,13 +1,32 @@
 {
     "name": "angular-simply-api",
     "version": "1.0.0-beta",
+    "ngPackage": {
+        "lib": {
+            "entryFile": "src/index.ts"
+        }
+    },
     "author": {
         "name": "Sergey Romanchuk"
     },
+    "maintainers": [
+        {
+            "email": "rezety@gmail.com",
+            "name": "Sergey Romanchuk"
+        }
+    ],
     "homepage": "https://github.com/LCGroupIT/angular-simply-api#readme",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/LCGroupIT/angular-simply-api.git"
+    },
+    "keywords": [
+        "api",
+        "angular",
+        "http"
+    ],
+    "bugs": {
+        "url": "https://github.com/LCGroupIT/angular-simply-api/issues"
     },
     "license": "MIT",
     "description": "Angular 4+ http request simplifier",
@@ -19,28 +38,25 @@
         "rimraf": "npx rimraf",
         "ngc": "npx ngc",
         "cpy": "npx cpy",
-        "rollup": "rollup",
-        "prebuild": "npm run clean",
-        "compile": "npm run compile:es2015 && npm run compile:es5",
-        "compile:es2015": "npm run ngc -- -p src/tsconfig-es2015.json && npm run rollup -- build/angular-simply-api.js -o dist/angular-simply-api.js -f es",
-        "compile:es5": "npm run ngc -- -p src/tsconfig-es5.json && npm run rollup -- build/angular-simply-api.js -o dist/angular-simply-api.es5.js -f es",
-        "copy:assets": "npm run cpy -- \"**/*.*\" \"!**/*.js\" \"../dist\" --parents --cwd=build && npm run cpy -- src/package.json dist && npm run cpy -- README.md dist && npm run cpy -- CHANGELOG.md dist",
+        "build": "npx ng-packagr -p package.json",
+        "clean": "npm run clean:build && npm run clean:tests",
+        "clean:build": "npm run rimraf -- dist build",
+        "clean:tests": "npm run rimraf -- coverage && npm run rimraf -- \"tests/**/*.+(js|js.map|d.ts|metadata.json)\" ",
+        "copy:assets": "npm run cpy -- CHANGELOG.md dist",
         "conventional-changelog": "conventional-changelog",
         "changelog": "npm run conventional-changelog -- -p angular -i CHANGELOG.md -s",
-        "clean": "rimraf dist/",
-        "clean:tests": "npm run rimraf -- coverage && npm run rimraf -- \"tests/**/*.+(js|js.map|d.ts|metadata.json)\" ",
-        "clean:compile": "npm run rimraf -- dist build",
+        "changelog:add": "git add --force CHANGELOG.md package.json",
+        "changelog:commit": "git commit -m \"Updated CHANGELOG.md\"",
         "lint": "npm run lint-ts && npm run lint-js && npm run lint-css",
         "lint-css": "stylelint './src/**/*.css'",
         "lint-ts": "tslint './src/**/*.ts'",
         "lint-js": "eslint '**/*.js' --ignore-path .gitignore",
-        "preversion": "npm run clean:compile && npm run compile && npm run copy:assets",
-        "version": "npm run changelog && git add CHANGELOG.md",
-        "postversion": "git push && git push --tags",
         "test": "npm run clean:tests && karma start karma.conf.js",
-        "test:watch": "npm run clean:tests && karma start karma.conf.debug.js"
+        "test:watch": "npm run clean:tests && karma start karma.conf.debug.js",
+        "version": "npx conventional-changelog -p angular -i CHANGELOG.md -s -r && npm run build && npm run copy:assets && npm run changelog:add && npm run changelog:commit",
+        "release": "npx np --contents=dist"
     },
-    "dependencies": {
+    "peerDependencies": {
         "@angular/common": ">=4.0.0 <=7.0.0",
         "@angular/core": ">=4.0.0 <=7.0.0",
         "rxjs": ">=5.5.10 <=7.0.0"
@@ -55,7 +71,6 @@
         "@types/chai": "^4.1.4",
         "@types/i18next": "^8.4.2",
         "@types/jasmine": "^2.8.8",
-        "@types/sinon": "^5.0.1",
         "chai": "^4.1.2",
         "codelyzer": "^4.4.2",
         "conventional-changelog-cli": "^2.0.1",
@@ -73,8 +88,9 @@
         "karma-sourcemap-loader": "^0.3.7",
         "karma-spec-reporter": "^0.0.32",
         "karma-webpack": "3.0.0",
+        "ng-packagr": "^4.2.0",
+        "np": "^3.0.4",
         "rimraf": "^2.6.2",
-        "rollup": "^0.66.0",
         "sinon": "^6.1.4",
         "ts-helpers": "^1.1.2",
         "ts-loader": "^4.4.2",
