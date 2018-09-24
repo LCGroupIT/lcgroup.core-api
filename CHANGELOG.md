@@ -1,3 +1,8 @@
+<a name="1.0.0"></a>
+# [1.0.0](https://github.com/LCGroupIT/angular-simply-api/compare/v1.0.0-beta.1...v1.0.0) (2018-09-24)
+
+
+
 <a name="1.0.0-beta.1"></a>
 # [1.0.0-beta.1](https://github.com/LCGroupIT/angular-simply-api/compare/v0.3.0...v1.0.0-beta.1) (2018-09-24)
 
