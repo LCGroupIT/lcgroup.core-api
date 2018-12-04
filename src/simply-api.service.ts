@@ -89,7 +89,7 @@ export class SimplyApiService {
     }
 
     private getHttpParams(params: { [key: string]: any }): HttpParams {
-        if (!params) {
+        if (params === null || params === undefined) {
             return null;
         }
         return new WebApiHttpParams({ fromObject: this.trySerialize(params) });
