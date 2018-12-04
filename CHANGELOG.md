@@ -1,3 +1,7 @@
+# [1.1.0](https://github.com/LCGroupIT/angular-simply-api/compare/v1.1.0-beta2...v1.1.0) (2018-12-04)
+
+
+
 # [1.1.0-beta2](https://github.com/LCGroupIT/angular-simply-api/compare/v1.0.0...v1.1.0-beta2) (2018-12-04)
 
 
