@@ -1,3 +1,12 @@
+# [2.0.0](https://github.com/LCGroupIT/angular-simply-api/compare/v1.1.0...v2.0.0) (2019-06-04)
+
+
+### Bug Fixes
+
+* added Angular 8 support ([42707f1](https://github.com/LCGroupIT/angular-simply-api/commit/42707f1))
+
+
+
 # [1.1.0](https://github.com/LCGroupIT/angular-simply-api/compare/v1.1.0-beta2...v1.1.0) (2018-12-04)
 
 
