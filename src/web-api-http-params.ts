@@ -1,11 +1,10 @@
 import { HttpParams } from '@angular/common/http';
-import { HttpParamsOptions } from '@angular/common/http/src/params';
 
 export class WebApiHttpParams extends HttpParams {
 
     private parent;
 
-    constructor(options?: HttpParamsOptions) {
+    constructor(options?) {
         const parent = super(options);
         this.parent = parent;
         if (!!options.fromObject) {
