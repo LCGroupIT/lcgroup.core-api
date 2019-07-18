@@ -1,3 +1,7 @@
+# [2.1.0](https://github.com/LCGroupIT/angular-simply-api/compare/v2.0.0...v2.1.0) (2019-07-18)
+
+
+
 # [2.0.0](https://github.com/LCGroupIT/angular-simply-api/compare/v1.1.0...v2.0.0) (2019-06-04)
 
 
