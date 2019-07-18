@@ -16,7 +16,7 @@ describe('Query string encoder', () => {
     });
 
     it('should serialize array to query string', () => {
-        const params = new WebApiHttpParams({ fromObject:  <any>[1, 2, 3] });
+        const params = new WebApiHttpParams({ fromObject: <any>[1, 2, 3] });
         expect(params.toString()).toEqual('0=1&1=2&2=3');
     });
 
@@ -46,14 +46,14 @@ describe('Query string encoder', () => {
 
     it('should serialize object to query string without index', () => {
         const array = [
-            {documentTypes: 'PaymentConfirmation'},
-            {documentTypes: 'PaymentConfirmation'}
+            { documentTypes: 'PaymentConfirmation' },
+            { documentTypes: 'StatementFromBank' }
         ];
         const settings = new Object as IApiSettings;
         settings.withoutIndex = true;
 
         const params = new WebApiHttpParams({ fromObject: array }, settings);
-        expect(params.toString()).toEqual('documentTypes=PaymentConfirmation&documentTypes=PaymentConfirmation');
+        expect(params.toString()).toEqual('documentTypes=PaymentConfirmation&documentTypes=StatementFromBank');
     });
 
 });

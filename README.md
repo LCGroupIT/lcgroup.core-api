@@ -115,3 +115,22 @@ export class ClientsService {
   }
 }
 ```
+
+
+### Simple Query string builder without index
+
+Native angular HttpClient query string params builder was changed to custom (WebApiHttpParams) due incorrect query string binding with asp.net web api. **WebApiHttpParams** requrcively analyses any complex object and builds correct query string without index.
+
+```typescript
+it('should serialize complex object to query string without index', () => {
+      const array = [
+            {documentTypes: 'PaymentConfirmation'},
+            {documentTypes: 'StatementFromBank'}
+        ];
+        const settings = new Object as IApiSettings;
+        settings.withoutIndex = true;
+
+        const params = new WebApiHttpParams({ fromObject: array }, settings);
+        expect(params.toString()).toEqual('documentTypes=PaymentConfirmation&documentTypes=StatementFromBank');
+});
+```
