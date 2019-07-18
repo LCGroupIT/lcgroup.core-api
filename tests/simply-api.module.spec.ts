@@ -37,27 +37,25 @@ describe('Service: SimplyApiService', () => {
                 const path = 'test';
                 const expectedPath = '/api/test';
 
-                const options = { params: { array: [1, 2], object: { a: 1, b: 2 } } };
-
-                apiService.get(path, options).subscribe();
+                apiService.get(path, { params: { array: [1, 2], object: { a: 1, b: 2 } } }).subscribe();
                 backend.expectOne({
                     url: expectedPath + '?array[0]=1&array[1]=2&object[a]=1&object[b]=2',
                     method: 'GET'
                 });
 
-                apiService.post(path, null, { params: { array: [1, 2], object: { a: 1, b: 2 } } }).subscribe();
+                apiService.post(path, null, { params: { array: [1, 2], object: { a: 1, b: 2 } } } ).subscribe();
                 backend.expectOne({
                     url: expectedPath + '?array[0]=1&array[1]=2&object[a]=1&object[b]=2',
                     method: 'POST'
                 });
 
-                apiService.put(path, null, { params: { array: [1, 2], object: { a: 1, b: 2 } } }).subscribe();
+                apiService.put(path, null, { params: { array: [1, 2], object: { a: 1, b: 2 } } } ).subscribe();
                 backend.expectOne({
                     url: expectedPath + '?array[0]=1&array[1]=2&object[a]=1&object[b]=2',
                     method: 'PUT'
                 });
 
-                apiService.delete(path, { params: { array: [1, 2], object: { a: 1, b: 2 } } }).subscribe();
+                apiService.delete(path, { params: { array: [1, 2], object: { a: 1, b: 2 } } } ).subscribe();
                 backend.expectOne({
                     url: expectedPath + '?array[0]=1&array[1]=2&object[a]=1&object[b]=2',
                     method: 'DELETE'
