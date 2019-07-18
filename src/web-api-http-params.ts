@@ -1,11 +1,14 @@
 import { HttpParams } from '@angular/common/http';
+import { IApiSettings } from './simply-api.service';
 
 export class WebApiHttpParams extends HttpParams {
 
     private parent;
+    private settings: IApiSettings;
 
-    constructor(options?) {
+    constructor(options?, settings?: IApiSettings) {
         const parent = super(options);
+        this.settings = settings ? settings : null;
         this.parent = parent;
         if (!!options.fromObject) {
             this.parent.map = new Map();
@@ -39,22 +42,19 @@ export class WebApiHttpParams extends HttpParams {
             }).join('&');
     }
 
-    private buildKey(key, childKey) {
-        return `${key}[${this.parent.encoder.encodeKey(childKey)}]`;
+    private buildString(key, value) {
+        return value instanceof Object ?
+            this.buildStringFromObject(key, value)
+            :
+            this.buildStringFromPrimitive(key, value)
     }
-
-    private buildStringFromPrimitive(key, value) {
-        if (value === undefined) {
-            return key;
-        }
-        return `${key}=${this.parent.encoder.encodeValue(value)}`;
-    }
-
+    
     private buildStringFromObject(key, object) {
         const keys = Object.keys(object);
         let result = [];
 
         for (let childK in keys) {
+
             if (childK) {
                 const childKey = keys[childK];
                 if (object[childKey]) {
@@ -62,13 +62,25 @@ export class WebApiHttpParams extends HttpParams {
                 }
             }
         }
-        return result.join('&');
+        return this.settings && this.settings.withoutIndex ?
+            result.join('')
+            :
+            result.join('&')
     }
 
-    private buildString(key, value) {
-        if (value instanceof Object) {
-            return  this.buildStringFromObject(key, value);
-        }
-        return this.buildStringFromPrimitive(key, value);
+    private buildKey(key, childKey) {
+        return this.settings && this.settings.withoutIndex ?
+            childKey
+            :
+            `${key}[${this.parent.encoder.encodeKey(childKey)}]`
+    }
+
+    
+
+    private buildStringFromPrimitive(key, value) {
+        return value === undefined ?
+            key 
+            :
+            `${key}=${this.parent.encoder.encodeValue(value)}`
     }
 }

@@ -1,4 +1,4 @@
-import { ISerializer } from 'index';
+import { ISerializer } from './../../src/index';
 
 export class ToUpperCaseSerializer implements ISerializer {
     serialize(data: any) {

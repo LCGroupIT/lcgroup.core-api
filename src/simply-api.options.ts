@@ -13,3 +13,4 @@ export interface ISimplyApiModuleOptions {
     endpoint?: string;
     serializeProvider?: ISerializerProvider;
 }
+

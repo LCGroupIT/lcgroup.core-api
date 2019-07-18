@@ -15,13 +15,20 @@ export enum ResponseTypeEnum {
     blob = 'blob'
 }
 
-export interface IApiOptions  {
+export interface IApiOptions {
     headers?: HttpHeaders;
     params?: { [key: string]: any };
     responseType?: any;
     reportProgress?: boolean;
     withCredentials?: boolean;
     observe?;
+    withoutIndex?: boolean;
+}
+
+export interface IApiSettings {
+    withCredentials?: boolean;
+    withoutIndex?: boolean;
+    reportProgress?: boolean;
 }
 
 export interface IDeserializeOptions {
@@ -47,35 +54,52 @@ export class SimplyApiService {
         @Optional()
         @Inject(API_SERIALIZER)
         private serializer: ISerializer
-    ) {}
+    ) { }
 
     public get<T>(url: string, options?: IApiOptions & IDeserializeOptions): Observable<T> {
+
+        let settings = new Object as IApiSettings;
+        settings = this.addSettings(settings, options);
         options = options || { responseType: ResponseTypeEnum.json };
         options.params = this.getHttpParams(options.params);
+        
         return this.http
             .get<T>(this.buildUrl(url), options)
             .pipe(map(result => this.tryDeserialize<T>(result, options && options.deserializeTo)));
     }
 
     public post<T>(url: string, body: any, options?: IApiOptions & IDeserializeOptions): Observable<T> {
+
+        let settings = new Object as IApiSettings;
+        settings = this.addSettings(settings, options);
         options = options || { responseType: ResponseTypeEnum.json };
         options.params = this.getHttpParams(options.params);
+        
+
         return this.http
             .post<T>(this.buildUrl(url), this.trySerialize(body), options)
             .pipe(map(result => this.tryDeserialize<T>(result, options && options.deserializeTo)));
     }
 
     public put<T>(url: string, body: any, options?: IApiOptions & IDeserializeOptions): Observable<T> {
+
+        let settings = new Object as IApiSettings;
+        settings = this.addSettings(settings, options);
         options = options || { responseType: ResponseTypeEnum.json };
         options.params = this.getHttpParams(options.params);
+
         return this.http
             .put<T>(this.buildUrl(url), this.trySerialize(body), options)
             .pipe(map(result => this.tryDeserialize<T>(result, options && options.deserializeTo)));
     }
 
     public delete<T>(url: string, options?: IApiOptions & IDeserializeOptions): Observable<T> {
+
+        let settings = new Object as IApiSettings;
+        settings = this.addSettings(settings, options);
         options = options || { responseType: ResponseTypeEnum.json };
         options.params = this.getHttpParams(options.params);
+
         return this.http
             .delete<T>(this.buildUrl(url), options)
             .pipe(map(result => this.tryDeserialize<T>(result, options && options.deserializeTo)));
@@ -88,11 +112,13 @@ export class SimplyApiService {
         return this.apiEndpoint.concat(url);
     }
 
-    private getHttpParams(params: { [key: string]: any }): HttpParams {
+    private getHttpParams(params: { [key: string]: any }, settings?: IApiSettings): HttpParams {
         if (params === null || params === undefined) {
             return null;
         }
-        return new WebApiHttpParams({ fromObject: this.trySerialize(params) });
+        return settings ? 
+            new WebApiHttpParams({ fromObject: this.trySerialize(params) }, settings) :
+            new WebApiHttpParams({ fromObject: this.trySerialize(params) })
     }
 
     private trySerialize(data: any): any {
@@ -114,5 +140,15 @@ export class SimplyApiService {
             return this.serializer.deserialize(data, deserializeTo);
         }
         return data;
+    }
+
+    addSettings(settings, options?) {
+        options ?
+            (settings.withoutIndex = options.withoutIndex,
+            settings.reportProgress = options.reportProgress,
+            settings.withCredentials = options.withCredentials)
+            :
+            settings = null
+        return settings;
     }
 }
