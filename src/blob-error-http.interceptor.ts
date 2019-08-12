@@ -25,12 +25,12 @@ export class BlobErrorHttpInterceptor implements HttpInterceptor {
                                         url: err.url
                                     }));
                                 } catch (e) {
-                                    console.log(e);
+                                    console.error(e);
                                     reject(err);
                                 }
                             };
                             reader.onerror = (e) => {
-                                console.log(e);
+                                console.error(e);
                                 reject(err);
                             };
                             reader.readAsText(err.error);
