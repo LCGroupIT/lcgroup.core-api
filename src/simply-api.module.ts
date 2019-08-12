@@ -1,5 +1,7 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ModuleWithProviders, NgModule } from '@angular/core';
+
+import { BlobErrorHttpInterceptor } from './blob-error-http.interceptor';
 import { ISerializer, ISimplyApiModuleOptions } from './simply-api.options';
 import { SimplyApiService } from './simply-api.service';
 import * as ApiTokens from './simply-api.tokens';
@@ -32,6 +34,11 @@ export class SimplyApiModule {
                 options.serializeProvider || {
                     provide: ApiTokens.API_SERIALIZER,
                     useFactory: nullSerializerFactory
+                },
+                {
+                    provide: HTTP_INTERCEPTORS,
+                    useClass: BlobErrorHttpInterceptor,
+                    multi: true
                 }
             ]
         };
