@@ -1,3 +1,13 @@
+# [2.1.0](https://github.com/LCGroupIT/angular-simply-api/compare/v2.0.0...v2.1.0) (2019-08-12)
+
+
+### Bug Fixes
+
+* console ([c9866aa](https://github.com/LCGroupIT/angular-simply-api/commit/c9866aa))
+* console ([aa578bd](https://github.com/LCGroupIT/angular-simply-api/commit/aa578bd))
+
+
+
 # [2.0.0](https://github.com/LCGroupIT/angular-simply-api/compare/v1.1.0...v2.0.0) (2019-06-04)
 
 
