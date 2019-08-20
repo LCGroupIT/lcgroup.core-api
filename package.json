@@ -1,6 +1,6 @@
 {
     "name": "angular-simply-api",
-    "version": "2.2.0-beta",
+    "version": "2.2.0-beta2",
     "ngPackage": {
         "lib": {
             "entryFile": "src/index.ts"

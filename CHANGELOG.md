@@ -1,3 +1,7 @@
+# [2.2.0-beta2](https://github.com/LCGroupIT/angular-simply-api/compare/v2.2.0-beta...v2.2.0-beta2) (2019-08-20)
+
+
+
 # [2.2.0-beta](https://github.com/LCGroupIT/angular-simply-api/compare/v2.1.0...v2.2.0-beta) (2019-08-20)
 
 
