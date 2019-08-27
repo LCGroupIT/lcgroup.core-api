@@ -39,15 +39,11 @@ export class WebApiHttpParams extends HttpParams {
             }).join('&');
     }
 
-    private buildKey(key, childKey) {
-        return `${key}[${this.parent.encoder.encodeKey(childKey)}]`;
-    }
-
-    private buildStringFromPrimitive(key, value) {
-        if (value === undefined) {
-            return key;
-        }
-        return `${key}=${this.parent.encoder.encodeValue(value)}`;
+    private buildString(key, value) {
+        return value instanceof Object ?
+            this.buildStringFromObject(key, value)
+            :
+            this.buildStringFromPrimitive(key, value);
     }
 
     private buildStringFromObject(key, object) {
@@ -58,17 +54,30 @@ export class WebApiHttpParams extends HttpParams {
             if (childK) {
                 const childKey = keys[childK];
                 if (object[childKey]) {
-                    result.push(this.buildString(this.buildKey(key, childKey), object[childKey]));
+
+                    const buildedKey = this.buildKey(key, childKey)
+                    const objectChildKey = this.buildString(buildedKey, object[childKey]);        
+
+                    if (objectChildKey !== '') {
+                        result.push(objectChildKey);
+                    }
                 }
             }
         }
         return result.join('&');
     }
 
-    private buildString(key, value) {
-        if (value instanceof Object) {
-            return  this.buildStringFromObject(key, value);
-        }
-        return this.buildStringFromPrimitive(key, value);
+    private buildKey(key, childKey) {
+        // checkOn Obj prop, to don't add array key
+        return isNaN(+key) ?            
+            `${key}[${this.parent.encoder.encodeKey(childKey)}]`
+            :
+            childKey
+    }
+    private buildStringFromPrimitive(key, value) {
+        return value === undefined ?
+            key
+            :
+            `${key}=${this.parent.encoder.encodeValue(value)}`;
     }
 }
