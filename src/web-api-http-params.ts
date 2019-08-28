@@ -53,31 +53,31 @@ export class WebApiHttpParams extends HttpParams {
         for (let childK in keys) {
             if (childK) {
                 const childKey = keys[childK];
-                if (object[childKey]) {
 
-                    const buildedKey = this.buildKey(key, childKey)
-                    const objectChildKey = this.buildString(buildedKey, object[childKey]);        
+                const buildedKey = this.buildKey(object, key, childKey);
+                const objectChildKey = this.buildString(buildedKey, object[childKey]);
 
-                    if (objectChildKey !== '') {
-                        result.push(objectChildKey);
-                    }
+                if (objectChildKey !== '') {
+                    result.push(objectChildKey);
                 }
             }
         }
         return result.join('&');
     }
 
-    private buildKey(key, childKey) {
-        // checkOn Obj prop, to don't add array key
-        return isNaN(+key) ?            
-            `${key}[${this.parent.encoder.encodeKey(childKey)}]`
-            :
-            childKey
+    private buildKey(value, key, childKey) {
+        if (value instanceof Array && value[childKey] instanceof Object || value instanceof Array && !(value[childKey] instanceof Object)) {
+            return key;
+        }
+
+        if (value instanceof Object) {
+            return `${key}[${this.parent.encoder.encodeKey(childKey)}]`;
+        }
+
+        return childKey;
     }
+
     private buildStringFromPrimitive(key, value) {
-        return value === undefined ?
-            key
-            :
-            `${key}=${this.parent.encoder.encodeValue(value)}`;
+        return value === undefined ? key : `${key}=${this.parent.encoder.encodeValue(value)}`;
     }
 }

@@ -40,7 +40,7 @@ describe('Query string encoder', () => {
         };
 
         const params = new WebApiHttpParams({ fromObject: complexObj });
-        expect(params.toString()).toEqual('numeric=1&float=1.4&string=text&subObject[prop1]=a&subObject[prop2]=b&arrayPrimitive[0]=1&arrayObjects[0][value]=1&arrayObjects[1][value]=2');
+        expect(params.toString()).toEqual('numeric=1&float=1.4&string=text&subObject[prop1]=a&subObject[prop2]=b&arrayPrimitive=1&arrayObjects[value]=1&arrayObjects[value]=2');
     });
 
 });
