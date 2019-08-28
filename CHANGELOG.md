@@ -1,3 +1,12 @@
+# [2.2.0-beta3.0](https://github.com/LCGroupIT/angular-simply-api/compare/v2.2.0-beta3...v2.2.0-beta3.0) (2019-08-28)
+
+
+### Bug Fixes
+
+* params ([0d2d4e9](https://github.com/LCGroupIT/angular-simply-api/commit/0d2d4e9))
+
+
+
 # [2.2.0-beta3](https://github.com/LCGroupIT/angular-simply-api/compare/v2.2.0-beta2...v2.2.0-beta3) (2019-08-20)
 
 
