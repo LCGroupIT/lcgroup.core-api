@@ -1,6 +1,6 @@
 {
-    "name": "angular-simply-api",
-    "version": "2.2.0",
+    "name": "@lcgroup.core/api",
+    "version": "0.0.2",
     "ngPackage": {
         "lib": {
             "entryFile": "src/index.ts"
@@ -15,23 +15,27 @@
             "name": "Sergey Romanchuk"
         }
     ],
-    "homepage": "https://github.com/LCGroupIT/angular-simply-api#readme",
+    "publishConfig": {
+        "access": "public"
+    },
+    "homepage": "https://github.com/LCGroupIT/lcgroup.core-api#readme",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/LCGroupIT/angular-simply-api.git"
+        "url": "git+https://github.com/LCGroupIT/lcgroup.core-api.git"
     },
     "keywords": [
         "api",
         "angular",
-        "http"
+        "http",
+        "HttpClient"
     ],
     "bugs": {
-        "url": "https://github.com/LCGroupIT/angular-simply-api/issues"
+        "url": "https://github.com/LCGroupIT/lcgroup.core/issues"
     },
     "license": "MIT",
-    "description": "Angular 4+ http request simplifier",
+    "description": "Angular HttpClient simplifier",
     "engines": {
-        "node": "8.9.3"
+        "node": ">= 8.9.3"
     },
     "scripts": {
         "karma": "npx karma",
@@ -40,7 +44,7 @@
         "build": "npx ng-packagr -p package.json",
         "clean": "npm run clean:build && npm run clean:tests",
         "clean:build": "npm run rimraf -- dist build",
-        "clean:tests": "npm run rimraf -- coverage && npm run rimraf -- \"tests/**/*.+(js|js.map|d.ts|metadata.json)\" ",
+        "clean:tests": "npm run rimraf -- coverage && npm run rimraf -- tests/**/*.+{js,js.map,d.ts,metadata.json}",
         "copy:assets": "npm run cpy -- CHANGELOG.md dist",
         "conventional-changelog": "conventional-changelog",
         "changelog": "npm run conventional-changelog -- -p angular -i CHANGELOG.md -s",
@@ -56,17 +60,17 @@
         "release": "npx np --contents=dist"
     },
     "peerDependencies": {
-        "@angular/common": ">=4.0.0 <9.0.0",
-        "@angular/core": ">=4.0.0 <9.0.0",
-        "rxjs": ">=5.5.10 <7.0.0"
+        "@angular/common": ">=9.0.0 <10.0.0",
+        "@angular/core": ">=9.0.0 <10.0.0",
+        "rxjs": ">=6.5.3 <7.2.5"
     },
     "devDependencies": {
-        "@angular/common": "8.0.0",
-        "@angular/compiler": "8.0.0",
-        "@angular/compiler-cli": "8.0.0",
-        "@angular/core": "8.0.0",
-        "@angular/platform-browser": "8.0.0",
-        "@angular/platform-browser-dynamic": "8.0.0",
+        "@angular/common": "9.1.9",
+        "@angular/compiler": "9.1.9",
+        "@angular/compiler-cli": "9.1.9",
+        "@angular/core": "9.1.9",
+        "@angular/platform-browser": "9.1.9",
+        "@angular/platform-browser-dynamic": "9.1.9",
         "@types/chai": "^4.1.7",
         "@types/jasmine": "^3.3.13",
         "chai": "^4.2.0",
@@ -86,8 +90,8 @@
         "karma-sourcemap-loader": "^0.3.7",
         "karma-spec-reporter": "^0.0.32",
         "karma-webpack": "3.0.5",
-        "ng-packagr": "^5.2.0",
-        "np": "^5.0.2",
+        "ng-packagr": "9.1.5",
+        "np": "6.2.3",
         "rimraf": "^2.6.3",
         "sinon": "^7.3.2",
         "ts-helpers": "^1.1.2",
@@ -95,8 +99,8 @@
         "tsickle": "^0.35.0",
         "tslint": "^5.17.0",
         "typedoc": "^0.14.2",
-        "typescript": "3.4.5",
+        "typescript": "3.7.5",
         "webpack": "4.26.1",
-        "zone.js": "^0.9.1"
+        "zone.js": "~0.10.2"
     }
 }
