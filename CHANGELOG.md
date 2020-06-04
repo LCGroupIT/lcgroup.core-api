@@ -1,3 +1,7 @@
+# [3.0.0](https://github.com/LCGroupIT/lcgroup.core-api/compare/v2.2.0...v3.0.0) (2020-06-04)
+
+
+
 # [2.2.0](https://github.com/LCGroupIT/angular-simply-api/compare/v2.2.0-beta4...v2.2.0) (2019-08-29)
 
 
