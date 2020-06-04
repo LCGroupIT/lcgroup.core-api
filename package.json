@@ -27,7 +27,8 @@
         "api",
         "angular",
         "http",
-        "HttpClient"
+        "HttpClient",
+        "Rest api"
     ],
     "bugs": {
         "url": "https://github.com/LCGroupIT/lcgroup.core/issues"
