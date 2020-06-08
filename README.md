@@ -1,7 +1,7 @@
 
-# angular-simply-api
+# API
 
-Angular 4+ http request simplifier
+Angular 9+ HttpClient wrapper for simplify usage
 
 ## Features
 
@@ -59,7 +59,7 @@ it('should serialize complex object to query string', () => {
 
 ## Installation
 
-Installation via npm `npm install angular-simply-api`.
+Installation via npm `npm install @lcgroup.core/api`.
 
 ## Example
 
@@ -69,7 +69,7 @@ Example [`json2typescript`](https://www.npmjs.com/package/json2typescript) libra
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { SimplyApiModule, SERIALIZER_OPTIONS } from 'angular-simply-api';
+import { ApiModule, SERIALIZER_OPTIONS } from '@lcgroup.core/api';
 import { AppComponent } from './app.component';
 import { JsonConvert, ValueCheckingMode } from 'json2typescript';
 
@@ -87,7 +87,7 @@ export function serializerFactory() {
   imports: [
     CommonModule,
     BrowserModule,
-    SimplyApiModule.forRoot(
+    ApiModule.forRoot(
         '/api',
         {
             serializeProvider: {
@@ -108,7 +108,7 @@ Deserialize json to ClientsFilterResult:
 
 @Injectable()
 export class ClientsService {
-  constructor(private api: SimplyApiService) { }
+  constructor(private api: Api) { }
 
   public getClientsList(filter: ClientInfoFilterDto): Observable<ClientsFilterResult> {
     return this.api.post(`/clients/search`, filter, { deserializeTo: ClientsFilterResult });

@@ -2,7 +2,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { async, inject, TestBed } from '@angular/core/testing';
 
-import { API_SERIALIZER, SimplyApiModule, SimplyApiService } from '../src';
+import { API_SERIALIZER, ApiModule, Api } from '../src';
 import { ToUpperCaseSerializer } from './mocks/to-upper-case-serializer';
 
 
@@ -12,7 +12,7 @@ describe('SimplyApiService: serializer (mapper)', () => {
             imports: [
                 HttpClientModule,
                 HttpClientTestingModule,
-                SimplyApiModule.forRoot({
+                ApiModule.forRoot({
                     serializeProvider: {
                         provide: API_SERIALIZER,
                         useFactory: () => new ToUpperCaseSerializer()
@@ -25,7 +25,7 @@ describe('SimplyApiService: serializer (mapper)', () => {
 
     it('should call deserialize method',
         async(
-            inject([SimplyApiService, HttpTestingController], (apiService: SimplyApiService, backend: HttpTestingController) => {
+            inject([Api, HttpTestingController], (apiService: Api, backend: HttpTestingController) => {
                 const path = '/api/test';
 
                 class Test {
@@ -47,7 +47,7 @@ describe('SimplyApiService: serializer (mapper)', () => {
 
     it('should deserializeTo arrays',
         async(
-            inject([SimplyApiService, HttpTestingController], (apiService: SimplyApiService, backend: HttpTestingController) => {
+            inject([Api, HttpTestingController], (apiService: Api, backend: HttpTestingController) => {
                 const path = '/api/test';
 
                 class Test {
@@ -79,7 +79,7 @@ describe('SimplyApiService: serializer (mapper)', () => {
 
     it('should call serialize method on POST and GET',
         async(
-            inject([SimplyApiService, HttpTestingController], (apiService: SimplyApiService, backend: HttpTestingController) => {
+            inject([Api, HttpTestingController], (apiService: Api, backend: HttpTestingController) => {
                 const path = '/api/test';
                 const originalText = 'should_be_uppercased';
                 const expectedText = originalText.toUpperCase();

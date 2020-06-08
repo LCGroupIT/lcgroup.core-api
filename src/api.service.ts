@@ -3,8 +3,8 @@ import { Inject, Injectable, Optional } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { ISerializer } from './simply-api.options';
-import { API_ENDPOINT, API_SERIALIZER } from './simply-api.tokens';
+import { ISerializer } from './api.options';
+import { API_ENDPOINT, API_SERIALIZER } from './api.tokens';
 import { WebApiHttpParams } from './web-api-http-params';
 
 
@@ -38,7 +38,7 @@ export interface IDeserializeOptions {
 }
 
 @Injectable()
-export class SimplyApiService {
+export class Api {
     constructor(
         private http: HttpClient,
         @Optional()

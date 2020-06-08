@@ -2,16 +2,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { async, inject, TestBed } from '@angular/core/testing';
 
-import { SimplyApiModule, SimplyApiService, nullSerializerFactory } from '../src';
+import { ApiModule, Api, nullSerializerFactory } from '../src';
 
 
-describe('Service: SimplyApiService', () => {
+describe('Service: Api', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [
                 HttpClientModule,
                 HttpClientTestingModule,
-                SimplyApiModule.forRoot({
+                ApiModule.forRoot({
                     endpoint: '/api/'
                 })
             ],
@@ -20,12 +20,12 @@ describe('Service: SimplyApiService', () => {
     });
 
     it('should be provided', () => {
-        const service: SimplyApiService = TestBed.get(SimplyApiService);
+        const service: Api = TestBed.get(Api);
         expect(service).toBeTruthy();
     });
 
     it('should provide correct endpoint', () => {
-        const service: SimplyApiService = TestBed.get(SimplyApiService);
+        const service: Api = TestBed.get(Api);
         expect(service.buildUrl('http://ya.ru')).toEqual('http://ya.ru');
         expect(service.buildUrl('https://ya.ru')).toEqual('https://ya.ru');
         expect(service.buildUrl('test')).toEqual('/api/test');
@@ -33,7 +33,7 @@ describe('Service: SimplyApiService', () => {
 
     it('should build correct query string',
         async(
-            inject([SimplyApiService, HttpTestingController], (apiService: SimplyApiService, backend: HttpTestingController) => {
+            inject([Api, HttpTestingController], (apiService: Api, backend: HttpTestingController) => {
                 const path = 'test';
                 const expectedPath = '/api/test';
 
@@ -66,7 +66,7 @@ describe('Service: SimplyApiService', () => {
 
     it('should POST/PUT body',
         async(
-            inject([SimplyApiService, HttpTestingController], (apiService: SimplyApiService, backend: HttpTestingController) => {
+            inject([Api, HttpTestingController], (apiService: Api, backend: HttpTestingController) => {
                 const path = 'test';
                 const expectedPath = '/api/test';
                 const testData = {
@@ -93,7 +93,7 @@ describe('Service: SimplyApiService', () => {
 
     it('should observe response',
         async(
-            inject([SimplyApiService, HttpTestingController], (apiService: SimplyApiService, backend: HttpTestingController) => {
+            inject([Api, HttpTestingController], (apiService: Api, backend: HttpTestingController) => {
                 const path = 'test';
                 const expectedPath = '/api/test';
                 const testData = {
