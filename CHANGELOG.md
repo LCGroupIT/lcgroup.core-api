@@ -1,3 +1,7 @@
+# [4.0.0](https://github.com/LCGroupIT/lcgroup.core-api/compare/v3.0.0...v4.0.0) (2020-06-08)
+
+
+
 # [3.0.0](https://github.com/LCGroupIT/lcgroup.core-api/compare/v2.2.0...v3.0.0) (2020-06-04)
 
 
