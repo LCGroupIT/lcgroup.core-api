@@ -22,7 +22,7 @@ export function nullSerializerFactory(): ISerializer {
     ]
 })
 export class ApiModule {
-    static forRoot(options: IApiModuleOptions = {}): ModuleWithProviders {
+    static forRoot(options: IApiModuleOptions = {}): ModuleWithProviders<ApiModule> {
         return {
             ngModule: ApiModule,
             providers: [
