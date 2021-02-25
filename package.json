@@ -64,17 +64,18 @@
         "tslib": "^2.0.0"
     },
     "peerDependencies": {
-        "@angular/common": ">=10.0.0 <11.0.0",
-        "@angular/core": ">=10.0.0 <11.0.0",
-        "rxjs": ">=6.5.3 <7.0.0"
+        "@angular/common": ">=11.0.0 <12.0.0",
+        "@angular/core": ">=11.0.0 <12.0.0",
+        "rxjs": ">=6.5.3 <7.0.0",
+        "typescript": ">=4.0.0 <4.2.0"
     },
     "devDependencies": {
-        "@angular/common": "^10.0.2",
-        "@angular/compiler": "^10.0.2",
-        "@angular/compiler-cli": "^10.0.2",
-        "@angular/core": "^10.0.2",
-        "@angular/platform-browser": "^10.0.2",
-        "@angular/platform-browser-dynamic": "^10.0.2",
+        "@angular/common": "^11.0.0",
+        "@angular/compiler": "^11.0.0",
+        "@angular/compiler-cli": "^11.0.0",
+        "@angular/core": "^11.0.0",
+        "@angular/platform-browser": "^11.0.0",
+        "@angular/platform-browser-dynamic": "^11.0.0",
         "@types/chai": "^4.1.7",
         "@types/jasmine": "^3.3.13",
         "chai": "^4.2.0",
@@ -103,7 +104,7 @@
         "tsickle": "^0.39.0",
         "tslint": "^5.17.0",
         "typedoc": "^0.17.8",
-        "typescript": "^3.9.6",
+        "typescript": "~4.0.0",
         "webpack": "^4.43.0",
         "zone.js": "~0.10.3"
     }
