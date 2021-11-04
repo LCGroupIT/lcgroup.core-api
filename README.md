@@ -1,4 +1,6 @@
 
+Moved to: **https://github.com/protoarch/angular**
+
 # API
 
 Angular 9+ HttpClient wrapper for simplify usage
